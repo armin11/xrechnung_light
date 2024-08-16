@@ -8,7 +8,7 @@ Funktionen:
 * Rechnungen (mit Anlagen)
 * Export XRechnung
 * Import XRechnung (mit eingebetteten Anlagen)
-* PDF-Export
+* PDF-Export (mit Firmenlogo)
 * Import/Export von Positionen in Form von CSV-Dateien
 
  Einfach unter Deboan 11 ausprobieren ;-) 
