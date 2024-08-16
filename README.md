@@ -11,7 +11,9 @@ Funktionen:
 * PDF-Export (mit Firmenlogo)
 * Import/Export von Positionen in Form von CSV-Dateien
 
- Einfach unter Deboan 11 ausprobieren ;-) 
+ Einfach unter Debian 11 ausprobieren ;-) 
+
+ Demo: https://www.armin11.de
 
  ```console
 git clone https://github.com/armin11/xrechnung_light.git
