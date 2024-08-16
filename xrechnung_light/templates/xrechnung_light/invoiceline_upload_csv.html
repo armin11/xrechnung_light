@@ -1,0 +1,15 @@
+{% extends "xrechnung_light/layout.html" %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% block title %}
+    Invoiceline csv upload
+{% endblock %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+   
+<input type="file" name="sent_file" />
+<input type="submit" name="submit" value="Upload" />
+</form>
+{% endblock %}

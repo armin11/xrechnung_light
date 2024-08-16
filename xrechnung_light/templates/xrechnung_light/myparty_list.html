@@ -1,0 +1,44 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    Firmenliste
+{% endblock %}
+{% block content %}
+<h2>Meine Firmen</h2>
+<p><a href="{% url 'myparty-create' %}">Firma anlegen</a>.</p>
+{% if myparty_list %}
+    <table class="myparty_list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Erstellt</th>
+            <th>Letzte Änderung</th>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th>Adresse</th>
+            <th>Ablagepfad</th>
+            <th>Download</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for myparty in myparty_list %}
+            <tr>
+                <td>{{ myparty.id }}</td>
+                <td>{{ myparty.created }}</td>
+                <td>{{ myparty.changed }}</td>
+                <td>{{ myparty.party_name }}</td>
+                <td>{{ myparty.party_contact_email }}</td>
+                <td>{{ myparty.party_postal_address.street_name }}<br>{{ myparty.party_postal_address.city_name}}</td>
+                <td>{{ myparty.party_logo }}</td>
+
+                <td>{% if myparty.party_logo %}<a target="_blank" href="{% url 'myparty-logo' pk=myparty.id%}">Download</a>{% endif %}</td>
+
+                <td><a href="{% url 'myparty-update' myparty.id%}">Bearbeiten</a></td>
+                <td><a href="{% url 'myparty-delete' myparty.id%}">Löschen</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

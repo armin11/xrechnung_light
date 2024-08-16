@@ -1,0 +1,17 @@
+{% extends "xrechnung_light/layout.html" %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+    Invoiceattachmentform
+{% endblock %}
+{% block content %}
+    <form action="" method="POST" class="invoiceattachment-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {% bootstrap_form form %}
+        
+        <input type="submit" class="save btn btn-default"value="Speichern">
+    </form>
+{% endblock %}

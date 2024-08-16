@@ -1,0 +1,15 @@
+{% extends "xrechnung_light/layout.html" %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+    Meine Firma bearbeiten
+{% endblock %}
+{% block content %}
+    <form method="POST" class="log-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="save btn btn-default">Speichern</button>
+    </form>
+{% endblock %}

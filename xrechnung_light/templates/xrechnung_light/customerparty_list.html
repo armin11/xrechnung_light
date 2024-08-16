@@ -1,0 +1,38 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    Kundenliste
+{% endblock %}
+{% block content %}
+<h2>Kundenliste</h2>
+<p><a href="{% url 'customerparty-create' %}">Kunden anlegen</a>.</p>
+{% if customerparty_list %}
+    <table class="customerparty_list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Erstellt</th>
+            <th>Letzte Änderung</th>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th>Adresse</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for customerparty in customerparty_list %}
+            <tr>
+                <td>{{ customerparty.id }}</td>
+                <td>{{ customerparty.created }}</td>
+                <td>{{ customerparty.changed }}</td>
+                <td>{{ customerparty.party_name }}</td>
+                <td>{{ customerparty.party_contact_email }}</td>
+                <td>{{ customerparty.party_postal_address.street_name }}<br>{{ customerparty.party_postal_address.city_name}}</td>
+                <td><a href="{% url 'customerparty-update' customerparty.id%}">Bearbeiten</a></td>
+                <td><a href="{% url 'customerparty-delete' customerparty.id%}">Löschen</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

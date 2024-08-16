@@ -1,0 +1,41 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    Anlagen
+{% endblock %}
+{% block content %}
+<h3>Rechnung: {{ invoice.id }}</h3>
+<h3>Anlagen</h3>
+<p><a href="{% url 'invoiceattachment-create' invoiceid=invoiceid %}">Anlage erstellen</a></p>
+{% if invoiceattachment_list %}
+    <table class="invoiceattachment_list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Erstellt</th>
+            <th>Letzte Änderung</th>
+            <th>Name</th>
+            <th>Beschreibung</th>
+            <th>Ablagepfad</th>
+            <th>Download</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoiceattachment in invoiceattachment_list %}
+            <tr>
+                <td>{{ invoiceattachment.id }}</td>
+                <td>{{ invoiceattachment.created }}</td>
+                <td>{{ invoiceattachment.changed }}</td>
+                <td>{{ invoiceattachment.identifier }}</td>
+                <td>{{ invoiceattachment.description }}</td>
+                <td>{{ invoiceattachment.attachment }}</td>
+                <td><a target="_blank" href="{% url 'invoiceattachment-download' pk=invoiceattachment.id%}">Download</a></td>
+                <td><a href="{% url 'invoiceattachment-update' pk=invoiceattachment.id invoiceid=invoiceattachment.invoice.id %}">Bearbeiten</a></td>
+                <td><a href="{% url 'invoiceattachment-delete' pk=invoiceattachment.id invoiceid=invoiceattachment.invoice.id %}">Löschen</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

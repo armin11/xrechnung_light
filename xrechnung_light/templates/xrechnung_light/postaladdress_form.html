@@ -1,0 +1,11 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    Postal address form
+{% endblock %}
+{% block content %}
+    <form method="POST" class="postal-address-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="save btn btn-default"value="Speichern">
+    </form>
+{% endblock %}

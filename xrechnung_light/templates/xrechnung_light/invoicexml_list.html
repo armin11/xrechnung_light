@@ -1,0 +1,38 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    XRechnung XML-Dateien
+{% endblock %}
+{% block content %}
+<h3>XRechnung XML-Dateien</h3>
+<p><a href="{% url 'invoicexml-create'%}">XRechnung XML hochladen</a></p>
+{% if invoicexml_list %}
+    <table class="invoicexml_list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Erstellt</th>
+            <th>Letzte Änderung</th>
+            <th>Name</th>
+            <th>Beschreibung</th>
+            <th>Dokument</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoicexml in invoicexml_list %}
+            <tr>
+                <td>{{ invoicexml.id }}</td>
+                <td>{{ invoicexml.created }}</td>
+                <td>{{ invoicexml.changed }}</td>
+                <td>{{ invoicexml.name }}</td>
+                <td>{{ invoicexml.description }}</td>
+                <td>{{ invoicexml.attachment }}</td>
+                <td><a href="{% url 'invoicexml-update' pk=invoicexml.id %}">Bearbeiten</a></td>
+                <td><a href="{% url 'invoicexml-delete' pk=invoicexml.id %}">Löschen</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

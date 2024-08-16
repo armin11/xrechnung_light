@@ -1,0 +1,36 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    Adressliste
+{% endblock %}
+{% block content %}
+<h2>Adressliste</h2>
+<p><a href="{% url 'postaladdress-create' %}">Adresse anlegen</a>.</p>
+{% if postaladdress_list %}
+    <table class="postaladdress_list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Erstellt</th>
+            <th>Letzte Änderung</th>
+            <th>Strasse</th>
+            <th>Stadt</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for postaladdress in postaladdress_list %}
+            <tr>
+                <td>{{ postaladdress.id }}</td>
+                <td>{{ postaladdress.created }}</td>
+                <td>{{ postaladdress.changed }}</td>
+                <td>{{ postaladdress.street_name }}</td>
+                <td>{{ postaladdress.city_name }}</td>
+                <td><a href="{% url 'postaladdress-update' postaladdress.id%}">Bearbeiten</a></td>
+                <td><a href="{% url 'postaladdress-delete' postaladdress.id%}">Löschen</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

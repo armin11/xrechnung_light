@@ -1,0 +1,42 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    Rechnungen
+{% endblock %}
+{% block content %}
+<h2>Rechnungen</h2>
+<p><a href="{% url 'invoice-create' %}">Rechnung anlegen</a></p>
+{% if invoice_list %}
+    <table class="customerparty_list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Erstellt</th>
+            <th>Letzte Änderung</th>
+            <th>Identifikator</th>
+            <th>Zahlungsdatum</th>
+            <th>Kunde</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoice_list %}
+            <tr>
+                <td><a href="{% url 'invoiceline-list' invoice.id%}">{{ invoice.id }}</a></td>
+                <td>{{ invoice.created }}</td>
+                <td>{{ invoice.changed }}</td>
+                <td>{{ invoice.identifier }}</td>
+                <td>{{ invoice.due_date }}</td>
+                <td>{{ invoice.customer_party.party_name }}</td>
+                <td><a href="{% url 'invoiceline-list' invoice.id%}">{{ invoice.invoiceline_set.all.count }} Positionen</a></td>
+                <td><a href="{% url 'invoiceattachment-list' invoice.id%}">{{ invoice.invoiceattachment_set.all.count }} Anlagen</a></td>
+                <td><a href="{% url 'invoice-update' invoice.id%}">Bearbeiten</a></td>
+                <td><a href="{% url 'invoice-delete' invoice.id%}">Löschen</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

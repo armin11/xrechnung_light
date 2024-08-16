@@ -1,0 +1,63 @@
+{% extends "xrechnung_light/layout.html" %}
+{% block title %}
+    Positionen
+{% endblock %}
+{% block content %}
+<h3>Rechnung: {{ invoice.id }}</h3>
+<ul>
+    <li>Kunde: <b>{{ invoice.customer_party.party_name }}</b></li>
+    <li>Gesamtbetrag ohne Steuern: {{ tax_exclusive_amount }}</li>
+    <li>Gesamtbetrag mit Steuern: {{ tax_inclusive_amount }}</li>
+    <li>Bezahlt: {{ invoice.prepaid_amount }}</li>
+    <li>Ausstehend: {{ payable_amount }}</li>
+    <li>Steuern: {{ tax_amount }}</li>
+    <li><a href="{% url 'invoiceline-list-xml' invoiceid=invoice.id%}">XRechnung XML</a></li>
+    <li><a href="{% url 'invoiceline-list-pdf' pk=invoice.id%}">Rechnung PDF</a></li>
+    <li><a href="{% url 'invoiceattachment-list' invoice.id%}">{{ invoice.invoiceattachment_set.all.count }} Anlagen</a></li>
+    <li><a href="{% url 'invoiceline-list-csv' invoice.id%}">Export Positionen als CSV - Trennerzeichen: <b>|</b></a></li>
+    <li><a href="{% url 'invoicelines-csv-upload' invoice.id%}">Import Positionen als CSV - Trennerzeichen: <b>|</b></a></li>
+</ul>
+<p>
+Link zum Online-Validator des Landes BW: <a href="https://erechnungsvalidator.service-bw.de/" target="_blank">Validator</a>
+</p>
+<h3>Positionen</h3>
+<p><a href="{% url 'invoiceline-create' invoiceid=invoiceid %}">Position anlegen</a></p>
+{% if invoiceline_list %}
+    <table class="invoiceline_list">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Erstellt</th>
+            <th>Letzte Änderung</th>
+            <th>Identifikator</th>
+            <th>Name</th>
+            <th>Beschreibung</th>
+            <th>Einheit</th>
+            <th>Menge</th>
+            <th>Einzelpreis</th>
+            <th>Steuer/Prozent</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoiceline in invoiceline_list %}
+            <tr>
+                <td>{{ invoiceline.id }}</td>
+                <td>{{ invoiceline.created }}</td>
+                <td>{{ invoiceline.changed }}</td>
+                <td>{{ invoiceline.identifier }}</td>
+                <td>{{ invoiceline.item_name }}</td>
+                <td>{{ invoiceline.item_description }}</td>
+                <td>{{ invoiceline.get_unit_display }}</td>
+                <td>{{ invoiceline.number_of_units }}</td>
+                <td>{{ invoiceline.price_per_unit }}</td>
+                <td>{{ invoiceline.tax }}</td>
+                <td><a href="{% url 'invoiceline-update' pk=invoiceline.id invoiceid=invoiceline.invoice.id%}">Bearbeiten</a></td>
+                <td><a href="{% url 'invoiceline-delete' pk=invoiceline.id invoiceid=invoiceline.invoice.id%}">Löschen</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

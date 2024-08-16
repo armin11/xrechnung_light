@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- https://www.fullstackpython.com/blog/bootstrap-4-django-template.html -->
+    <meta charset="utf-8"/>
+    <meta name="description" content="Author: Armin Retterath, XRechnung, Django, Formular, Easy, kostenfrei, Open Source"/>
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'xrechnung_light/site.css' %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<div class="navbar">
+    <a href="{% url 'home' %}" class="navbar-brand">XRechnung light</a>
+    <!-- Insert below the link to Home -->
+    <a href="{% url 'invoice-list' %}" class="navbar-item">Rechnungen</a>
+    <a href="{% url 'invoicexml-list' %}" class="navbar-item">XRechnung XML</a>
+    <a href="{% url 'postaladdress-list' %}" class="navbar-item">Adressen</a>
+    <a href="{% url 'customerparty-list' %}" class="navbar-item">Kunden</a>
+    <a href="{% url 'myparty-list' %}" class="navbar-item">Firmen</a>
+    <!-- <a href="{% url 'about' %}" class="navbar-item">Über</a> -->
+    <a href="{% url 'contact' %}" class="navbar-item">Kontakt</a>
+    {% if user.is_authenticated %}
+        <p>
+            Angemeldeter Benutzer: {{ user.username }} <br>
+            <a href="{% url 'logout' %}" class="navbar-item">Abmelden</a>
+        </p>
+    {% else %}
+        <a href="{% url 'login' %}" class="navbar-item">Anmelden</a>
+    {% endif %}
+</div>
+
+<div class="body-content">
+    {% block content %}
+    {% endblock %}
+    <hr/>
+    <footer>
+        <p>&copy; 2024</p>
+        <p>Letzte Änderung: 2024-08-06 22:30 Import XRechnung</p>
+    </footer>
+</div>
+</body>
+</html>

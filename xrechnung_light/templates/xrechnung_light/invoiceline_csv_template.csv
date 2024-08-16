@@ -1,0 +1,3 @@
+identifier||item_name||item_description||price_per_unit||unit||number_of_units||tax
+{% for invoiceline in invoiceline_list %}{{ invoiceline.identifier }}||{{ invoiceline.item_name }}||{{ invoiceline.item_description }}||{{ invoiceline.price_per_unit }}||{{ invoiceline.number_of_units }}||{{ invoiceline.unit }}||{{ invoiceline.tax }}
+{% endfor %}
