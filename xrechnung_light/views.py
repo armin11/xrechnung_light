@@ -216,6 +216,7 @@ class PdfInvoice(BaseDocTemplate):
         description_paragraph_style = copy.deepcopy(self.style['Normal'])
         description_paragraph_style.alignment = 0
         description_paragraph_style.fontSize = 8
+        sum_b = 0.0
         for invoiceline in invoicelines:
             table_grid.append([invoiceline.identifier, self.Paragraph(invoiceline.item_description + " - " + invoiceline.item_name, description_paragraph_style), invoiceline.number_of_units,  invoiceline.get_unit_display(), invoiceline.price_per_unit, "{:.2f}".format(invoiceline.total_cost)])
             sum_invoice = sum_invoice + float(invoiceline.total_cost)
