@@ -4,7 +4,7 @@
 
 Einfache Django-Anwendung zur Verwaltung von elektronischen Rechnungen (XRechnung 3.0+). Das Projekt ist als "Proof of Concept" gedacht und läßt sich gut für ein Django Tutorial nutzen.
 
-## Funktionen:
+## Funktionen
 
 * Firmenliste
 * Kundenliste
