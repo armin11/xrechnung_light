@@ -2,16 +2,14 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-
 {% block title %}
-    Invoiceline form
+    Rechungspositionsformular
 {% endblock %}
 {% block content %}
     <form method="POST" class="invoice-form">
         {% csrf_token %}
         {{ form.media }}
         {% bootstrap_form form %}
-        
         <input type="submit" class="save btn btn-default"value="Speichern">
     </form>
 {% endblock %}

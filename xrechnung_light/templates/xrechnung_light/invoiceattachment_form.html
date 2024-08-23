@@ -2,7 +2,6 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-
 {% block title %}
     Invoiceattachmentform
 {% endblock %}
@@ -11,7 +10,6 @@
         {% csrf_token %}
         {{ form.media }}
         {% bootstrap_form form %}
-        
         <input type="submit" class="save btn btn-default"value="Speichern">
     </form>
 {% endblock %}

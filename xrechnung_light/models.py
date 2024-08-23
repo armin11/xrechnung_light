@@ -6,10 +6,15 @@ from django.utils.text import slugify
 import os
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
-
+from django.core.exceptions import ValidationError
 import uuid, PIL
 from io import BytesIO
 import magic, base64
+
+def only_int(value): 
+    if value.isdigit()==False:
+        raise ValidationError('ID contains characters')
+
 
 class GenericMetadata(models.Model):
     generic_id = models.UUIDField(default = uuid.uuid4)
@@ -41,7 +46,7 @@ class PostalAddress(GenericMetadata):
     FEDERAL_STATE_CHOICES = ((RLP, "Rheinland-Pfalz"), (HE, "Hessen"),)
     street_name = models.CharField(max_length=300, verbose_name="Strasse und Hausnummer", help_text="Beispiel: 'Musterstraße 10'")
     city_name = models.CharField(max_length=300, verbose_name="Stadt/Ort", help_text="Beispiel: 'Musterdorf'")
-    postal_zone = models.CharField(max_length=128, verbose_name="Postleitzahl", help_text="Beispiel: '12345'")
+    postal_zone = models.CharField(max_length=5, verbose_name="Postleitzahl", help_text="Beispiel: '12345'", validators=[only_int])
     country_subentity = models.CharField(max_length=128,
         choices=FEDERAL_STATE_CHOICES,
         default=RLP, verbose_name="Bundesland")
