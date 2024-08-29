@@ -1,10 +1,12 @@
 {% extends "../xrechnung_light/layout.html" %}
-
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
 {% block content %}
 <h2>Registrieren</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% bootstrap_form form %}
         <button type="submit">Registrieren</button>
     </form>
 {% endblock %}
