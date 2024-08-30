@@ -8,3 +8,7 @@ register = template.Library()
 def lower(value):
     return value.lower()
 
+@register.filter
+@stringfilter
+def exchange_comma_with_point(value):
+    return value.replace(',', '.')

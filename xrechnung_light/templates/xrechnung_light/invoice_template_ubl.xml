@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+{% load xrechnung_light_extras %}
 <ubl:Invoice xmlns:ubl="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
   <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>
   <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
@@ -97,14 +98,14 @@
     <cbc:Note>{{ invoice.payment_terms }}</cbc:Note>
   </cac:PaymentTerms>
   <cac:TaxTotal>
-    <cbc:TaxAmount currencyID="EUR">{{ tax_amount }}</cbc:TaxAmount>
+    <cbc:TaxAmount currencyID="EUR">{{ tax_amount|safe }}</cbc:TaxAmount>
     {% for tax_sub in tax_list %}
     <cac:TaxSubtotal>
-      <cbc:TaxableAmount currencyID="EUR">{{ tax_sub.amount_for_tax|floatformat:2 }}</cbc:TaxableAmount>
-      <cbc:TaxAmount currencyID="EUR">{{ tax_sub.tax_amount|floatformat:2 }}</cbc:TaxAmount>
+      <cbc:TaxableAmount currencyID="EUR">{{ tax_sub.amount_for_tax|floatformat:2|exchange_comma_with_point }}</cbc:TaxableAmount>
+      <cbc:TaxAmount currencyID="EUR">{{ tax_sub.tax_amount|floatformat:2|exchange_comma_with_point }}</cbc:TaxAmount>
       <cac:TaxCategory>
         <cbc:ID>S</cbc:ID>
-        <cbc:Percent>{{ tax_sub.tax_percentage }}</cbc:Percent>
+        <cbc:Percent>{{ tax_sub.tax_percentage|safe }}</cbc:Percent>
         <cac:TaxScheme>
           <cbc:ID>VAT</cbc:ID>
         </cac:TaxScheme>
@@ -113,33 +114,33 @@
     {% endfor %}
   </cac:TaxTotal>
   <cac:LegalMonetaryTotal>
-    <cbc:LineExtensionAmount currencyID="EUR">{{ tax_exclusive_amount }}</cbc:LineExtensionAmount>
-    <cbc:TaxExclusiveAmount currencyID="EUR">{{ tax_exclusive_amount }}</cbc:TaxExclusiveAmount>
-    <cbc:TaxInclusiveAmount currencyID="EUR">{{ tax_inclusive_amount }}</cbc:TaxInclusiveAmount>
+    <cbc:LineExtensionAmount currencyID="EUR">{{ tax_exclusive_amount|safe }}</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="EUR">{{ tax_exclusive_amount|safe }}</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="EUR">{{ tax_inclusive_amount|safe }}</cbc:TaxInclusiveAmount>
     <cbc:AllowanceTotalAmount currencyID="EUR">0.00</cbc:AllowanceTotalAmount>
     <cbc:ChargeTotalAmount currencyID="EUR">0.00</cbc:ChargeTotalAmount>
-    <cbc:PrepaidAmount currencyID="EUR">{{ invoice.prepaid_amount }}</cbc:PrepaidAmount>
+    <cbc:PrepaidAmount currencyID="EUR">{{ invoice.prepaid_amount|floatformat:2|exchange_comma_with_point }}</cbc:PrepaidAmount>
     <cbc:PayableRoundingAmount currencyID="EUR">0.00</cbc:PayableRoundingAmount>
-    <cbc:PayableAmount currencyID="EUR">{{ payable_amount }}</cbc:PayableAmount>
+    <cbc:PayableAmount currencyID="EUR">{{ payable_amount|safe }}</cbc:PayableAmount>
   </cac:LegalMonetaryTotal>
   {% for invoiceline in invoiceline_list %}
   <cac:InvoiceLine>
     <cbc:ID>{{ invoiceline.identifier }}</cbc:ID>
     <cbc:Note>{{ invoiceline.item_description }}</cbc:Note>
-    <cbc:InvoicedQuantity unitCode="{{ invoiceline.unit }}">{{ invoiceline.number_of_units }}</cbc:InvoicedQuantity>
-    <cbc:LineExtensionAmount currencyID="EUR">{{ invoiceline.total_cost|floatformat:2 }}</cbc:LineExtensionAmount>
+    <cbc:InvoicedQuantity unitCode="{{ invoiceline.unit }}">{{ invoiceline.number_of_units|floatformat:2|exchange_comma_with_point }}</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">{{ invoiceline.total_cost|floatformat:2|exchange_comma_with_point}}</cbc:LineExtensionAmount>
     <cac:Item>
       <cbc:Name>{{ invoiceline.item_name }}</cbc:Name>
       <cac:ClassifiedTaxCategory>
         <cbc:ID>S</cbc:ID>
-        <cbc:Percent>{{ invoiceline.tax }}</cbc:Percent>
+        <cbc:Percent>{{ invoiceline.tax|safe}}</cbc:Percent>
         <cac:TaxScheme>
           <cbc:ID>VAT</cbc:ID>
         </cac:TaxScheme>
       </cac:ClassifiedTaxCategory>
     </cac:Item>
     <cac:Price>
-      <cbc:PriceAmount currencyID="EUR">{{ invoiceline.price_per_unit }}</cbc:PriceAmount>
+      <cbc:PriceAmount currencyID="EUR">{{ invoiceline.price_per_unit|safe }}</cbc:PriceAmount>
     </cac:Price>
   </cac:InvoiceLine>
   {% endfor %}
