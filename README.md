@@ -17,7 +17,7 @@ Einfache Django-Anwendung zur Verwaltung von elektronischen Rechnungen (XRechnun
 
  ## Demo
  
-https://www.armin11.de
+https://xrechnung.armin11.de
 
 ## Installation
  
