@@ -264,7 +264,7 @@ class InvoiceLine(GenericMetadata):
 
     @property
     def total_cost(self):
-        return self.number_of_units * self.price_per_unit
+        return round(self.number_of_units * self.price_per_unit, 2)
 
 
     def __str__(self):

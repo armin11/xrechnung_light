@@ -640,8 +640,8 @@ class InvoiceLineListView(MyListView):
                 index = index + 1
             # get key for this tax value
             # 
-            tax_amount_for_invoiceline = ( float(invoiceline.price_per_unit) * float(invoiceline.number_of_units) ) * float(invoiceline.tax) / float('100.0')
-            amount_for_invoiceline = ( float(invoiceline.price_per_unit) * float(invoiceline.number_of_units) )
+            tax_amount_for_invoiceline = round((float(invoiceline.price_per_unit) * float(invoiceline.number_of_units) ) * float(invoiceline.tax) / float('100.0'),2)
+            amount_for_invoiceline = round( float(invoiceline.price_per_unit) * float(invoiceline.number_of_units), 2)
             if tax_value_index != False or str(tax_value_index) == '0':
                 #tax_list[tax_value_index]['amount_for_tax'] = f"{round(float(tax_list[tax_value_index]['amount_for_tax']) + amount_for_invoiceline, 2):.2f}"
                 #tax_list[tax_value_index]['tax_amount'] = f"{round(float(tax_list[tax_value_index]['tax_amount']) + tax_amount_for_invoiceline, 2):.2f}"
